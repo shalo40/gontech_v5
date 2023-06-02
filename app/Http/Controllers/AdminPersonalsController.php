@@ -5,7 +5,7 @@
 	use DB;
 	use CRUDBooster;
 
-	class AdminTicketsController extends \crocodicstudio\crudbooster\controllers\CBController {
+	class AdminPersonalsController extends \crocodicstudio\crudbooster\controllers\CBController {
 
 	    public function cbInit() {
 
@@ -25,50 +25,47 @@
 			$this->button_filter = true;
 			$this->button_import = true;
 			$this->button_export = true;
-			$this->table = "tickets";
+			$this->table = "personals";
 			# END CONFIGURATION DO NOT REMOVE THIS LINE
 
 			# START COLUMNS DO NOT REMOVE THIS LINE
 			$this->col = [];
-			$this->col[] = ["label"=>"#","name"=>"id"];
-			$this->col[] = ["label"=>"Dueño del equipo","name"=>"cliente_id","join"=>"clientes,nombre_cliente"];
-			$this->col[] = ["label"=>"Responsable del ticket","name"=>"responsable_id","join"=>"personals,nombre"];
-			$this->col[] = ["label"=>"N°Serie Equipo","name"=>"equipo_id","join"=>"equipos,n_serie_equipo"];
-			$this->col[] = ["label"=>"Procedimiento involucrado","name"=>"procedimiento_id","join"=>"procedimientos,nombre_procedimiento"];
-			$this->col[] = ["label"=>"Fecha y hora de creacion","name"=>"fecha_hora_asignacion"];
-			$this->col[] = ["label"=>"Fecha y hora limite de respuesta","name"=>"fecha_hora_limite_respuesta"];
-			$this->col[] = ["label"=>"Tipo Servicio","name"=>"tipo_servicio"];
-			$this->col[] = ["label"=>"Area","name"=>"area_del_requerimiento"];
-			$this->col[] = ["label"=>"Descripcion del requerimiento","name"=>"descripcion_problema"];
-			$this->col[] = ["label"=>"Estado","name"=>"estado_ticket"];
+			$this->col[] = ["label"=>"Nombre","name"=>"nombre"];
+			$this->col[] = ["label"=>"Rut","name"=>"rut"];
+			$this->col[] = ["label"=>"Telefono 1","name"=>"telefono_1"];
+			$this->col[] = ["label"=>"Telefono 2","name"=>"telefono_2"];
+			$this->col[] = ["label"=>"Correo Personal","name"=>"correo_personal"];
+			$this->col[] = ["label"=>"Correo Empresa","name"=>"correo_empresa"];
+			$this->col[] = ["label"=>"Direccion","name"=>"direccion"];
+			$this->col[] = ["label"=>"Area","name"=>"area"];
+			$this->col[] = ["label"=>"Especialidad","name"=>"especialidad"];
+			$this->col[] = ["label"=>"Fecha de creacion","name"=>"created_at"];
 			# END COLUMNS DO NOT REMOVE THIS LINE
 
 			# START FORM DO NOT REMOVE THIS LINE
 			$this->form = [];
-			$this->form[] = ['label'=>'Cliente','name'=>'cliente_id','type'=>'select2','width'=>'col-sm-4','datatable'=>'clientes,nombre_cliente'];
-			$this->form[] = ['label'=>'Fecha/Hora de creacion de ticket','name'=>'fecha_hora_asignacion','type'=>'datetime','validation'=>'date_format:Y-m-d H:i:s','width'=>'col-sm-4'];
-			$this->form[] = ['label'=>'Area Del Requerimiento','name'=>'area_del_requerimiento','type'=>'select2','width'=>'col-sm-4','dataenum'=>'SSTT;DESARROLLO;ADMINISTRATIVA;LOGISTICA;CEO;MARKETING'];
-			$this->form[] = ['label'=>'Tipo Servicio','name'=>'tipo_servicio','type'=>'text','width'=>'col-sm-4'];
-			$this->form[] = ['label'=>'Equipo (n°serie)','name'=>'equipo_id','type'=>'select2','width'=>'col-sm-4','datatable'=>'equipos,n_serie_equipo'];
-			$this->form[] = ['label'=>'Procedimiento a aplicar','name'=>'procedimiento_id','type'=>'select2','width'=>'col-sm-4','datatable'=>'procedimientos,nombre_procedimiento'];
-			$this->form[] = ['label'=>'Descripcion Problema','name'=>'descripcion_problema','type'=>'textarea','width'=>'col-sm-4'];
-			$this->form[] = ['label'=>'Responsable del ticket','name'=>'responsable_id','type'=>'select2','width'=>'col-sm-4','datatable'=>'personals,nombre'];
-			$this->form[] = ['label'=>'Fecha/Hora limite de ticket','name'=>'fecha_hora_limite_respuesta','type'=>'datetime','validation'=>'date_format:Y-m-d H:i:s','width'=>'col-sm-4'];
-			$this->form[] = ['label'=>'Estado Ticket','name'=>'estado_ticket','type'=>'select2','width'=>'col-sm-4','dataenum'=>'En espera de retiro;En espera de repuesto;Esperando entrevista de requerimientos;En desarrollo;En Reparacion;En Diagnostico;Buscando el respuesto;Entregado a cliente;Completado;'];
+			$this->form[] = ['label'=>'Nombre completo','name'=>'nombre','type'=>'text','width'=>'col-sm-6'];
+			$this->form[] = ['label'=>'Rut','name'=>'rut','type'=>'text','width'=>'col-sm-4'];
+			$this->form[] = ['label'=>'Telefono 1','name'=>'telefono_1','type'=>'text','width'=>'col-sm-4'];
+			$this->form[] = ['label'=>'Telefono 2','name'=>'telefono_2','type'=>'text','width'=>'col-sm-4'];
+			$this->form[] = ['label'=>'Correo Personal','name'=>'correo_personal','type'=>'email','width'=>'col-sm-6'];
+			$this->form[] = ['label'=>'Correo Empresa','name'=>'correo_empresa','type'=>'email','width'=>'col-sm-6'];
+			$this->form[] = ['label'=>'Direccion','name'=>'direccion','type'=>'text','width'=>'col-sm-6'];
+			$this->form[] = ['label'=>'Especialidad','name'=>'especialidad','type'=>'text','width'=>'col-sm-4'];
+			$this->form[] = ['label'=>'Area','name'=>'area','type'=>'text','width'=>'col-sm-4'];
 			# END FORM DO NOT REMOVE THIS LINE
 
 			# OLD START FORM
 			//$this->form = [];
-			//$this->form[] = ['label'=>'Cliente','name'=>'cliente_id','type'=>'select2','width'=>'col-sm-4','datatable'=>'clientes,nombre_cliente'];
-			//$this->form[] = ['label'=>'Fecha/Hora de creacion de ticket','name'=>'fecha_hora_asignacion','type'=>'datetime','validation'=>'date_format:Y-m-d H:i:s','width'=>'col-sm-4'];
-			//$this->form[] = ['label'=>'Area Del Requerimiento','name'=>'area_del_requerimiento','type'=>'select2','width'=>'col-sm-4','dataenum'=>'SSTT;DESARROLLO;ADMINISTRATIVA;LOGISTICA;CEO;MARKETING'];
-			//$this->form[] = ['label'=>'Tipo Servicio','name'=>'tipo_servicio','type'=>'text','width'=>'col-sm-4'];
-			//$this->form[] = ['label'=>'Equipo (n°serie)','name'=>'equipo_id','type'=>'select2','width'=>'col-sm-4','datatable'=>'equipos,n_serie_equipo'];
-			//$this->form[] = ['label'=>'Procedimiento a aplicar','name'=>'procedimiento_id','type'=>'select2','width'=>'col-sm-4','datatable'=>'procedimientos,nombre_procedimiento'];
-			//$this->form[] = ['label'=>'Descripcion Problema','name'=>'descripcion_problema','type'=>'textarea','width'=>'col-sm-4'];
-			//$this->form[] = ['label'=>'Responsable del ticket','name'=>'responsable_id','type'=>'select2','width'=>'col-sm-4','datatable'=>'procedimientos,nombre_procedimiento'];
-			//$this->form[] = ['label'=>'Fecha/Hora limite de ticket','name'=>'fecha_hora_limite_respuesta','type'=>'datetime','validation'=>'date_format:Y-m-d H:i:s','width'=>'col-sm-4'];
-			//$this->form[] = ['label'=>'Estado Ticket','name'=>'estado_ticket','type'=>'select2','width'=>'col-sm-4','dataenum'=>'En espera de retiro;En espera de repuesto;Esperando entrevista de requerimientos;En desarrollo;En Reparacion;En Diagnostico;Buscando el respuesto;Entregado a cliente;Completado;'];
+			//$this->form[] = ["label"=>"Nombre","name"=>"nombre","type"=>"text","required"=>TRUE,"validation"=>"required|min:1|max:255"];
+			//$this->form[] = ["label"=>"Telefono 1","name"=>"telefono_1","type"=>"text","required"=>TRUE,"validation"=>"required|min:1|max:255"];
+			//$this->form[] = ["label"=>"Telefono 2","name"=>"telefono_2","type"=>"text","required"=>TRUE,"validation"=>"required|min:1|max:255"];
+			//$this->form[] = ["label"=>"Correo Personal","name"=>"correo_personal","type"=>"text","required"=>TRUE,"validation"=>"required|min:1|max:255"];
+			//$this->form[] = ["label"=>"Correo Empresa","name"=>"correo_empresa","type"=>"text","required"=>TRUE,"validation"=>"required|min:1|max:255"];
+			//$this->form[] = ["label"=>"Rut","name"=>"rut","type"=>"text","required"=>TRUE,"validation"=>"required|min:1|max:255"];
+			//$this->form[] = ["label"=>"Direccion","name"=>"direccion","type"=>"text","required"=>TRUE,"validation"=>"required|min:1|max:255"];
+			//$this->form[] = ["label"=>"Especialidad","name"=>"especialidad","type"=>"text","required"=>TRUE,"validation"=>"required|min:1|max:255"];
+			//$this->form[] = ["label"=>"Area","name"=>"area","type"=>"text","required"=>TRUE,"validation"=>"required|min:1|max:255"];
 			# OLD END FORM
 
 			/* 
